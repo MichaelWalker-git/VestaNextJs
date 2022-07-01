@@ -3,7 +3,6 @@ import type {NextPage} from 'next';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import {
-    Reviews,
     Features,
     Services,
     Teaser,
@@ -22,6 +21,21 @@ import {createTheme} from "@mui/material/styles";
 import { styled, alpha } from '@mui/material/styles';
 import {colors, useMediaQuery} from '@mui/material';
 import imgSrc from './../images/img3.png';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import {useEffect} from "react";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCVg6rIBusqjD1JoUSNHUwoe-LJCN4xSu8",
+    authDomain: "vesta-software.firebaseapp.com",
+    projectId: "vesta-software",
+    storageBucket: "vesta-software.appspot.com",
+    messagingSenderId: "716816042596",
+    appId: "1:716816042596:web:ec7951197c25eb6e5fed71",
+    measurementId: "G-3NX7RLDCM0"
+};
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -77,6 +91,16 @@ const Home: NextPage = () => {
     const isMd = useMediaQuery(theme.breakpoints.up('md'), {
         defaultMatches: true,
     });
+
+    const app = initializeApp(firebaseConfig);
+    const analytics = () => {
+        if (typeof window !== "undefined") {
+            return getAnalytics(app);
+        } else {
+            return null
+        }
+    }
+
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
